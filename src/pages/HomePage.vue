@@ -1,25 +1,18 @@
 <template>
-  <q-layout view="lHr lpR lFr">
-    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
-    </q-drawer>
-
-    <q-drawer show-if-above v-model="rightDrawerOpen" side="right" bordered>
-    </q-drawer>
-
-    <q-page-container>
-      <router-view />
-    </q-page-container>
-  </q-layout>
+  <div>
+    home page
+  </div>
 </template>
 
 <script setup>
-import { ref, watch, computed, provide } from "vue";
+import { ref, watch, computed, inject } from "vue";
 import { useI18n } from "vue-i18n";
 //#region Composables
 const { t } = useI18n();
 //#endregion
 
 //#region Injects
+const leftDrawerOpen = inject("leftDrawerOpen");
 //#endregion
 
 //#region Props
@@ -29,8 +22,6 @@ const { t } = useI18n();
 //#endregion
 
 //#region Variables
-const leftDrawerOpen = ref(false);
-const rightDrawerOpen = ref(false);
 //#endregion
 
 //#region Methods
@@ -49,8 +40,6 @@ const rightDrawerOpen = ref(false);
 //#endregion
 
 //#region Providers
-provide("leftDrawerOpen", leftDrawerOpen);
-provide("rightDrawerOpen", rightDrawerOpen);
 //#endregion
 </script>
 
