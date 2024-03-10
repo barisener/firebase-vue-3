@@ -36,7 +36,7 @@ module.exports = configure(function (/* ctx */) {
     // https://github.com/quasarframework/quasar/tree/dev/extras
     extras: [
       // 'ionicons-v4',
-      // 'mdi-v5',
+      "mdi-v5",
       // 'fontawesome-v6',
       // 'eva-icons',
       // 'themify',
@@ -63,7 +63,11 @@ module.exports = configure(function (/* ctx */) {
 
       // publicPath: '/',
       // analyze: true,
-      // env: {},
+      env: {
+        FIREBASE_API_KEY: "AIzaSyC0iBfuSUVwOrAcGPzclgyXMvjjFNYxyxE",
+        FIREBASE_APP_ID: "1:815128910300:web:b10d6d4aeb226ffc3c9719",
+        FIREBASE_MEASUREMENT_ID: "G-C0X54WDT7E",
+      },
       // rawDefine: {}
       // ignorePublicFolder: true,
       // minify: false,

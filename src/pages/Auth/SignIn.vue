@@ -1,12 +1,19 @@
 <template>
   <div>
-    <pre v-if="isAuthenticated">{{ user }}</pre>
-    <div v-else>
+    <pre>{{ user }}</pre>
+    <pre>{{ isAuthenticated }}</pre>
+    <div>
       <q-btn
         color="primary"
         icon="mdi-google"
         :label="t('Sign in with google')"
         @click="signIn"
+      />
+      <q-btn
+        color="primary"
+        icon="mdi-logout"
+        :label="t('Sign out')"
+        @click="signOut()"
       />
     </div>
   </div>
@@ -16,19 +23,24 @@
 import { ref, watch, computed } from "vue";
 import { useI18n } from "vue-i18n";
 import { initializeApp } from "firebase/app";
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  getAuth,
+  signInWithPopup,
+  signOut as signOutFromFirebase,
+} from "firebase/auth";
 import { useAuth } from "@vueuse/firebase/useAuth";
 
 //#region Composables
 const { t } = useI18n();
 const app = initializeApp({
-  apiKey: "AIzaSyC0iBfuSUVwOrAcGPzclgyXMvjjFNYxyxE",
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "fir-vue-32053.firebaseapp.com",
   projectId: "fir-vue-32053",
   storageBucket: "fir-vue-32053.appspot.com",
   messagingSenderId: "815128910300",
-  appId: "1:815128910300:web:b10d6d4aeb226ffc3c9719",
-  measurementId: "G-C0X54WDT7E",
+  appId: process.env.FIREBASE_APP_ID,
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID,
 });
 const auth = getAuth(app);
 const { isAuthenticated, user } = useAuth(auth);
@@ -48,6 +60,15 @@ const { isAuthenticated, user } = useAuth(auth);
 
 //#region Methods
 const signIn = () => signInWithPopup(auth, new GoogleAuthProvider());
+const signOut = () => {
+  signOutFromFirebase(auth)
+    .then(() => {
+      console.log("Sign out successful");
+    })
+    .catch((error) => {
+      console.log("Sign out error", error);
+    });
+};
 //#endregion
 
 //#region Computed Properties
